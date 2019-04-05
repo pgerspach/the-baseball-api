@@ -1,0 +1,215 @@
+{% load static %} <link rel="stylesheet" href="{% static "baseball_api/index.css" %}">
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/themes/prism-okaidia.css"
+/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/prism.min.js"></script>
+
+<div class="flex-column page">
+  <div class="header flex-row">
+    <h1 class="api-title flex-row">Welcome to The Baseball API</h1>
+  </div>
+  <div class="main-row flex-row">
+    <div class="main-column flex-column">
+      <h1>
+        How To:
+      </h1>
+      <br />
+
+      <p style="font-size:14px">
+        <span style="font-style: italic">Note:</span> Support for more endpoints
+        and advanced querying is on the way! This is version 1.0.1 of the site
+        and it is being worked on as you read this.
+      </p>
+      <br />
+
+      <h2>
+        Player IDs
+      </h2>
+      <p>
+        To query by player ID, make the request to your desired<code
+          >/{endpoint}</code
+        >
+        and add the player's unique playerID to the end. Every player's playerID
+        in The Baseball API is formed using the following formula:<br /><br /><code
+          style="font-size:16px"
+          >[first 5 letters of the player's last name] + [first 2 letters of the
+          player's first name]+[uniqueness number, with a leading 0 if
+          single-digit]
+        </code>
+      </p>
+      <p>
+        For example, if you want to get statistics for Derek Jeter, you would
+        need his player ID which is formed as "jeter"+"de"+"01" = "jeterde01"
+      </p>
+      <p>
+        Please note that for some players, such as Bryce Harper, there are
+        players that precede them with the same pattern, which causes the final
+        two digits of their playerID to be higher than 01. Bryce Harper is
+        "harpbr03"
+      </p>
+
+      <h2>
+        Endpoints
+      </h2>
+      <p>
+        As of now, The Baseball API only serves 3 main endpoints:
+      </p>
+      <ul>
+        <li><code>/players</code></li>
+        <li><code>/pitching</code></li>
+        <li><code>/batting</code></li>
+      </ul>
+      <br />
+      <br />
+
+      <h2>
+        <code>
+          /players
+        </code>
+      </h2>
+      <p>
+        Make your request to <code>/players/{player id}</code> to retrieve basic
+        personal information
+      </p>
+      <p>Request:</p>
+      <pre><code class="language-js">
+            $.get("xxxxx/player/jeterde01").then(res=>{
+                console.log(res)
+            })
+</code></pre>
+      <p>Response:</p>
+
+      <pre><code class="language-js">
+        {
+            "playerid": "jeterde01",
+            "birthyear": 1974,
+            "birthmonth": 6,
+            "birthday": 26,
+            "birthcountry": "USA",
+            "birthstate": "NJ",
+            "birthcity": "Pequannock",
+            "deathyear": null,
+            "deathmonth": null,
+            "deathday": null,
+            "deathcountry": "",
+            "deathstate": "",
+            "deathcity": "",
+            "namefirst": "Derek",
+            "namelast": "Jeter",
+            "namegiven": "Derek Sanderson",
+            "weight": 195,
+            "height": 75,
+            "bats": "R",
+            "throws": "R",
+            "debut": "1995-05-29",
+            "finalgame": "2014-09-28",
+            "retroid": "jeted001",
+            "bbrefid": "jeterde01"
+            }</code></pre>
+      <h2>
+        <code>
+          /batting
+        </code>
+      </h2>
+      <p>
+        Make your request to <code>/batting/{player id}</code> to retrieve core
+        batting information
+      </p>
+      <p>Request:</p>
+      <pre><code class="language-js">
+                $.get("xxxxx/batting/jeterde01").then(res=>{
+                    console.log(res)
+                })
+    </code></pre>
+      <p>Response:</p>
+
+      <pre><code class="language-js">
+                [
+                    {
+                    "id": 179328,
+                    "player_id": "jeterde01",
+                    "yearid": 1995,
+                    "stint": 1,
+                    "teamid": "NYA",
+                    "lgid": "AL",
+                    "g": 15,
+                    "ab": 48,
+                    "r": 5,
+                    "h": 12,
+                    "_2b": 4,
+                    "_3b": 1,
+                    "hr": 0,
+                    "rbi": 7,
+                    "sb": 0,
+                    "cs": 0,
+                    "bb": 3,
+                    "so": 11,
+                    "ibb": 0,
+                    "hbp": 0,
+                    "sh": 0,
+                    "sf": 0,
+                    "gidp": 0,
+                    "avg": 0.25
+                    }
+                    ...
+            
+            </code></pre>
+      <h2>
+        <code>
+          /pitching
+        </code>
+      </h2>
+      <p>
+        Make your request to <code>/pitching/{player id}</code> to retrieve core
+        pitching information
+      </p>
+      <p>Request:</p>
+      <pre><code class="language-js">
+                            $.get("xxxxx/pitching/degroja01").then(res=>{
+                                console.log(res)
+                            })
+                </code></pre>
+      <p>Response:</p>
+
+      <pre><code class="language-js">
+                [
+                    {
+                    "id": 42746,
+                    "player_id": "degroja01",
+                    "yearid": 2014,
+                    "stint": 1,
+                    "teamid": "NYN",
+                    "lgid": "NL",
+                    "w": 9,
+                    "l": 6,
+                    "g": 22,
+                    "gs": 22,
+                    "cg": 0,
+                    "sho": 0,
+                    "sv": 0,
+                    "ipouts": 421,
+                    "h": 117,
+                    "er": 42,
+                    "hr": 7,
+                    "bb": 43,
+                    "so": 144,
+                    "baopp": 0.228,
+                    "era": 2.69,
+                    "ibb": 2,
+                    "wp": 1,
+                    "hbp": 1,
+                    "bk": 0,
+                    "bfp": 565,
+                    "gf": 0,
+                    "r": 44,
+                    "sh": 5,
+                    "sf": 3,
+                    "gidp": 13
+                    },
+                    ...
+                        
+                        </code></pre>
+    </div>
+  </div>
+</div>
